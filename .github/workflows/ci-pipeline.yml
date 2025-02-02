@@ -30,12 +30,11 @@ jobs:
         run: |
           sudo curl -L "https://github.com/docker/compose/releases/download/v2.17.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
-          docker-compose version  # Verify installation
 
       - name: Build and run unit tests
         run: |
           dotnet build CardValidation.sln --configuration Release
-          dotnet test UnitTests/UnitTests.csproj
+          dotnet test UnitTests/UnitTests.csproj --no-build --logger trx --results-directory ./test-results/unit
 
       - name: Build Docker images
         run: |
@@ -44,3 +43,20 @@ jobs:
 
       - name: Run integration tests with Docker Compose
         run: docker-compose up --abort-on-container-exit --build
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: Unit-Test-Results
+          path: ./test-results/unit/*.trx
+
+      - name: Upload integration test results
+        if: always()
+        run: |
+          mkdir -p ./test-results/integration
+          docker cp $(docker ps -qf "name=integration-tests"):/app/IntegrationTests/TestResults ./test-results/integration
+
+        uses: actions/upload-artifact@v3
+        with:
+          name: Integration-Test-Results
+          path: ./test-results/integration/**/*.trx
