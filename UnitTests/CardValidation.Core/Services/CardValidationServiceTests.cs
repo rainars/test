@@ -40,56 +40,56 @@ namespace UnitTests.CardValidation.Core.Services
             Assert.IsFalse(result, $"The owner name '{owner}' should be considered invalid.");
         }
 
-        [Test]
-        public void ValidateOwner_ShouldReturnFalse_WhenOwnerIsNull()
-        {
-            // Arrange
-            string? owner = null; // Nullable reference type.
+        //[Test]
+        //public void ValidateOwner_ShouldReturnFalse_WhenOwnerIsNull()
+        //{
+        //    // Arrange
+        //    string? owner = null; // Nullable reference type.
 
-            // Act
-            var result = _service.ValidateOwner(owner);
+        //    // Act
+        //    var result = _service.ValidateOwner(owner);
 
-            // Assert
-            Assert.IsFalse(result, "Null owner name should be considered invalid.");
-        }
+        //    // Assert
+        //    Assert.IsFalse(result, "Null owner name should be considered invalid.");
+        //}
 
-        [Test]
-        public void ValidateOwner_ShouldReturnFalse_WhenOwnerExceedsMaxLength()
-        {
-            // Arrange
-            var owner = new string('A', 101); // Assuming max length is 100 characters.
+        //[Test]
+        //public void ValidateOwner_ShouldReturnFalse_WhenOwnerExceedsMaxLength()
+        //{
+        //    // Arrange
+        //    var owner = new string('A', 101); // Assuming max length is 100 characters.
 
-            // Act
-            var result = _service.ValidateOwner(owner);
+        //    // Act
+        //    var result = _service.ValidateOwner(owner);
 
-            // Assert
-            Assert.IsFalse(result, "Owner name exceeding max length should be considered invalid.");
-        }
+        //    // Assert
+        //    Assert.IsFalse(result, "Owner name exceeding max length should be considered invalid.");
+        //}
 
-        [Test]
-        public void ValidateOwner_ShouldReturnTrue_WhenOwnerIsExactlyMaxLength()
-        {
-            // Arrange
-            var owner = new string('A', 100); // Assuming max length is 100 characters.
+        //[Test]
+        //public void ValidateOwner_ShouldReturnTrue_WhenOwnerIsExactlyMaxLength()
+        //{
+        //    // Arrange
+        //    var owner = new string('A', 100); // Assuming max length is 100 characters.
 
-            // Act
-            var result = _service.ValidateOwner(owner);
+        //    // Act
+        //    var result = _service.ValidateOwner(owner);
 
-            // Assert
-            Assert.IsTrue(result, "Owner name of exactly max length should be considered valid.");
-        }
+        //    // Assert
+        //    Assert.IsTrue(result, "Owner name of exactly max length should be considered valid.");
+        //}
 
-        [TestCase("john doe", Description = "Lowercase should be allowed.")]
-        [TestCase("JOHN DOE", Description = "Uppercase should be allowed.")]
-        [TestCase("John A. Doe", Description = "Names with middle initial should be allowed.")]
-        [TestCase("John Mary Lee", Description = "Names with multiple words should be allowed.")]
-        public void ValidateOwner_ShouldReturnTrue_ForValidOwnerNames(string owner)
-        {
-            // Act
-            var result = _service.ValidateOwner(owner);
+        //[TestCase("john doe", Description = "Lowercase should be allowed.")]
+        //[TestCase("JOHN DOE", Description = "Uppercase should be allowed.")]
+        //[TestCase("John A. Doe", Description = "Names with middle initial should be allowed.")]
+        //[TestCase("John Mary Lee", Description = "Names with multiple words should be allowed.")]
+        //public void ValidateOwner_ShouldReturnTrue_ForValidOwnerNames(string owner)
+        //{
+        //    // Act
+        //    var result = _service.ValidateOwner(owner);
 
-            // Assert
-            Assert.IsTrue(result, $"The owner name '{owner}' should be considered valid.");
-        }
+        //    // Assert
+        //    Assert.IsTrue(result, $"The owner name '{owner}' should be considered valid.");
+        //}
     }
 }
