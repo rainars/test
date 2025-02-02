@@ -26,6 +26,12 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
+      - name: Install Docker Compose
+        run: |
+          sudo curl -L "https://github.com/docker/compose/releases/download/v2.17.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose version  # Verify installation
+
       - name: Build and run unit tests
         run: |
           dotnet build CardValidation.sln --configuration Release
@@ -36,6 +42,5 @@ jobs:
           docker build -t card-validation-api -f CardValidation.Web/Dockerfile .
           docker build -t card-validation-integration-tests -f Dockerfile.integration-tests .
 
-      - name: Run integration tests
-        run: |
-          docker-compose up --abort-on-container-exit --build
+      - name: Run integration tests with Docker Compose
+        run: docker-compose up --abort-on-container-exit --build
