@@ -34,7 +34,7 @@ jobs:
       - name: Build and run unit tests
         run: |
           dotnet build CardValidation.sln --configuration Release
-          dotnet test UnitTests/UnitTests.csproj trx --results-directory ./test-results/unit
+          dotnet test UnitTests/UnitTests.csproj --results-directory ./test-results/unit
 
       - name: Build Docker images
         run: |
