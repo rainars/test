@@ -31,10 +31,15 @@ jobs:
           sudo curl -L "https://github.com/docker/compose/releases/download/v2.17.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
 
-      - name: Build and run unit tests
+      - name: Build and run unit tests with coverage
         run: |
           dotnet build CardValidation.sln --configuration Release
-          dotnet test UnitTests/UnitTests.csproj --results-directory ./test-results/unit
+          dotnet test UnitTests/UnitTests.csproj --collect:"XPlat Code Coverage" --results-directory ./test-results/unit
+
+      - name: Generate coverage report
+        run: |
+          dotnet tool install -g dotnet-reportgenerator-globaltool
+          reportgenerator -reports:"./test-results/unit/**/coverage.cobertura.xml" -targetdir:"./coverage-report" -reporttypes:Html
 
       - name: Build Docker images
         run: |
@@ -50,8 +55,14 @@ jobs:
           mkdir -p ./test-results/integration
           docker cp $(docker ps -aqf "name=integration-tests"):/app/ReqnrollProject1/TestResults ./test-results/integration
 
-      - name: Upload test results (optional)
+      - name: Upload test and coverage results
         uses: actions/upload-artifact@v4
         with:
           name: TestResults
           path: "**/*.trx"
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: CoverageReport
+          path: ./coverage-report
