@@ -210,16 +210,17 @@ namespace tests.step_definitions
 
 
         [Reqnroll.Then(@"the response should contain an error for Owner ""(.*)""")]
-        public async Task ThenTheThenTheResponseShouldContainOwnerError(string expectedMessage)
+        public async Task ThenTheResponseShouldContainOwnerError(string expectedMessage)
         {
             var content = await GetResponseContentAsync();
 
             if (TryParseJson(content, out var jsonResponse))
             {
                 // Specifically look for errors under the "Owner" field
-                if (jsonResponse.TryGetValue("Owner", out var ownerErrors))
+                if (jsonResponse?.TryGetValue("Owner", out var ownerErrors) == true)
                 {
-                    ownerErrors.ToString().Should().Contain(expectedMessage,
+                    var ownerErrorsString = ownerErrors?.ToString() ?? string.Empty;
+                    ownerErrorsString.Should().Contain(expectedMessage,
                         $"Expected to find '{expectedMessage}' under 'Owner' errors in the response.");
                 }
                 else
@@ -233,6 +234,7 @@ namespace tests.step_definitions
                     $"Expected response content to be '{expectedMessage}', but got '{content.Trim()}'");
             }
         }
+
 
         /// <summary>
         /// Creates a CreditCard instance with the provided details.
