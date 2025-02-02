@@ -130,10 +130,11 @@ namespace tests.step_definitions
 
             if (TryParseJson(content, out var jsonResponse))
             {
-                bool messageFound = jsonResponse
+                bool messageFound = jsonResponse?
                     .Descendants()
                     .OfType<JValue>()
-                    .Any(value => value.ToString().Contains(expectedMessage));
+                    .Any(value => value.ToString().Contains(expectedMessage)) ?? false;
+
                 messageFound.Should().BeTrue(
                     $"Expected to find '{expectedMessage}' in the JSON response, but got: {content}");
             }
@@ -143,6 +144,7 @@ namespace tests.step_definitions
                     $"Expected response content to be '{expectedMessage}', but got '{content.Trim()}'");
             }
         }
+
 
         [Given(@"a credit card with CVC ""(.*)""")]
         public void GivenACreditCardWithCVC(string cvc)
@@ -158,8 +160,11 @@ namespace tests.step_definitions
 
 
         [Then(@"the response should contain errors:")]
+        [Then(@"the response should contain errors:")]
         public async Task ThenTheResponseShouldContainErrors(Reqnroll.Table table)
         {
+            if (table == null) throw new ArgumentNullException(nameof(table));
+
             var content = await _response.Content.ReadAsStringAsync();
 
             try
@@ -172,12 +177,12 @@ namespace tests.step_definitions
                     var expectedMessage = row["message"];
 
                     // Check if the response contains the field
-                    if (jsonResponse.TryGetValue(field, StringComparison.OrdinalIgnoreCase, out JToken errorMessages))
+                    if (jsonResponse.TryGetValue(field, StringComparison.OrdinalIgnoreCase, out JToken? errorMessages))
                     {
                         // Handle cases where the response might have multiple error messages for the same field
                         var messages = errorMessages.Type == JTokenType.Array
-                            ? errorMessages.ToObject<List<string>>()
-                            : new List<string> { errorMessages.ToString() };
+                            ? errorMessages.ToObject<List<string>>() ?? new List<string>()
+                            : new List<string> { errorMessages.ToString() ?? string.Empty };
 
                         // Validate that at least one message contains the expected message
                         bool messageFound = messages.Any(message => message.Contains(expectedMessage));
@@ -200,6 +205,8 @@ namespace tests.step_definitions
                 Microsoft.VisualStudio.TestTools.UnitTesting.Assert.Fail($"Failed to parse JSON response. Raw response: {content}");
             }
         }
+
+
 
 
         [Reqnroll.Then(@"the response should contain an error for Owner ""(.*)""")]
@@ -252,10 +259,11 @@ namespace tests.step_definitions
                 var jsonResponse = JObject.Parse(content);
 
                 // Check if the "Number" field contains the expected error message
-                if (jsonResponse.TryGetValue("Number", out JToken numberErrors))
+                if (jsonResponse.TryGetValue("Number", out JToken? numberErrors))
                 {
-                    numberErrors.ToString().Should().Contain(expectedMessage,
-                        $"Expected 'Number' field to contain '{expectedMessage}', but got '{numberErrors}'");
+                    var numberErrorsString = numberErrors?.ToString() ?? string.Empty;
+                    numberErrorsString.Should().Contain(expectedMessage,
+                        $"Expected 'Number' field to contain '{expectedMessage}', but got '{numberErrorsString}'");
                 }
                 else
                 {
@@ -271,6 +279,7 @@ namespace tests.step_definitions
         }
 
 
+
         [Then(@"the response should contain errors for owner ""(.*)"" and CVC ""(.*)""")]
         public async Task ThenTheResponseShouldContainErrorsForOwnerAndCvc(string expectedOwnerError, string expectedCvcError)
         {
@@ -281,9 +290,10 @@ namespace tests.step_definitions
                 var jsonResponse = JObject.Parse(content);
 
                 // Validate owner error
-                if (jsonResponse.TryGetValue("Owner", out JToken ownerErrors))
+                if (jsonResponse.TryGetValue("Owner", out JToken? ownerErrors))
                 {
-                    ownerErrors.ToString().Should().Contain(expectedOwnerError, $"Expected error '{expectedOwnerError}' for owner");
+                    var ownerErrorsString = ownerErrors?.ToString() ?? string.Empty;
+                    ownerErrorsString.Should().Contain(expectedOwnerError, $"Expected error '{expectedOwnerError}' for owner");
                 }
                 else
                 {
@@ -291,9 +301,10 @@ namespace tests.step_definitions
                 }
 
                 // Validate CVC error
-                if (jsonResponse.TryGetValue("Cvv", out JToken cvvErrors))
+                if (jsonResponse.TryGetValue("Cvv", out JToken? cvvErrors))
                 {
-                    cvvErrors.ToString().Should().Contain(expectedCvcError, $"Expected error '{expectedCvcError}' for CVC");
+                    var cvvErrorsString = cvvErrors?.ToString() ?? string.Empty;
+                    cvvErrorsString.Should().Contain(expectedCvcError, $"Expected error '{expectedCvcError}' for CVC");
                 }
                 else
                 {
@@ -305,6 +316,8 @@ namespace tests.step_definitions
                 Microsoft.VisualStudio.TestTools.UnitTesting.Assert.Fail($"Failed to parse JSON response. Raw response: {content}");
             }
         }
+
+        
 
 
         /// <summary>

@@ -29,8 +29,8 @@ namespace IntegrationTests.Features
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "MasterCard Credit Card Validation", "  As an API consumer\r\n  I want to validate credit card details\r\n  So that only va" +
-                "lid credit card transactions are processed", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "MasterCard Credit Card Validation", ("  As an API consumer\r\n  I want to validate credit card details\r\n  So that only va" +
+                "lid credit card transactions are processed"), global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
 #line 1 "card_validationMasterCard.feature"
 #line hidden

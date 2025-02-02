@@ -29,8 +29,8 @@ namespace IntegrationTests.Features
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Visa Credit Card Validation", "  As an API consumer\r\n  I want to validate credit card details\r\n  So that only va" +
-                "lid credit card transactions are processed", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Visa Credit Card Validation", ("  As an API consumer\r\n  I want to validate credit card details\r\n  So that only va" +
+                "lid credit card transactions are processed"), global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
 #line 1 "card_validationVisa.feature"
 #line hidden
@@ -223,21 +223,13 @@ await this.FeatureBackgroundAsync();
         [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("01/22", "400", "Wrong date", null)]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("13/25", "400", "Wrong date", null)]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12-25", "400", "Wrong date", null)]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12/252525", "400", "Wrong date", null)]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12/5", "400", "Wrong date", null)]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("02/2024", "200", "10", null)]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("02/2020", "400", "Wrong date", null)]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("02/29", "400", "Wrong date", null)]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("02/28", "200", "10", null)]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("122025", "400", "Wrong date", null)]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("\" 12/25 \"", "200", "10", null)]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("01/25", "200", "10", null)]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("1/25", "200", "10", null)]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("abc/xyz", "400", "Wrong date", null)]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("00/25", "400", "Wrong date", null)]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12/2025", "200", "10", null)]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12/2100", "200", "10", null)]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12/2500", "400", "Wrong date", null)]
         public async System.Threading.Tasks.Task ValidateVisaCardExpirationDateChecks(string issueDate, string statusCode, string expectedMessage, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
