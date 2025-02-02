@@ -15,7 +15,7 @@ namespace tests.support
         [BeforeScenario]
         public void BeforeScenario()
         {
-            _context.SetBaseUrl("http://localhost:7135");
+            _context.SetBaseUrl("http://card-validation-api:8080");  // Updated to match Docker Compose service name and port
         }
 
         [AfterScenario]

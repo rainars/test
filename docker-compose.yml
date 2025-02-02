@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  card-validation-api:
+    build:
+      context: .
+      dockerfile: CardValidation.Web/Dockerfile
+    ports:
+      - "7135:8080"  # Expose the API locally
+    environment:
+      - ASPNETCORE_URLS=http://+:8080
+    networks:
+      - qa-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/swagger/index.html"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  integration-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.integration-tests
+    depends_on:
+      card-validation-api:
+        condition: service_healthy  # Wait until the service is healthy
+    networks:
+      - qa-network
+    environment:
+      - BASE_URL=http://card-validation-api:8080  # Correct internal URL
+    entrypoint: >
+      /bin/sh -c "
+      dotnet test ReqnrollProject1/IntegrationTests.csproj --logger trx
+      "
+
+networks:
+  qa-network:
+    driver: bridge

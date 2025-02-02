@@ -1,0 +1,14 @@
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+WORKDIR /app
+
+# Copy everything to the container
+COPY . .
+
+# Restore dependencies using the correct path
+RUN dotnet restore ReqnrollProject1/IntegrationTests.csproj
+
+# Build the integration tests
+RUN dotnet build ReqnrollProject1/IntegrationTests.csproj --configuration Release
+
+# Run the integration tests automatically when the container starts
+CMD ["dotnet", "test", "ReqnrollProject1/IntegrationTests.csproj", "--logger", "trx"]

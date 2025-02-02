@@ -33,7 +33,7 @@ namespace tests.step_definitions
         [Reqnroll.Given(@"the API base URL is set")]
         public void GivenTheApiBaseUrlIsSet()
         {
-            _context.SetBaseUrl("http://localhost:7135");
+            _context.SetBaseUrl("http://card-validation-api:8080");
         }
 
         [Given(@"a valid Visa credit card with number ""(.*)""")]

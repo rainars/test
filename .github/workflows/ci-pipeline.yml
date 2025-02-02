@@ -24,24 +24,18 @@ jobs:
       - name: Set up .NET environment
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '8.0.x'  # Use .NET 8.0 SDK
+          dotnet-version: '8.0.x'
 
-      - name: Build the solution
-        run: dotnet build CardValidation.sln --configuration Release
-
-      - name: Run unit tests
-        run: dotnet test UnitTests/UnitTests.csproj --configuration Release --no-build --verbosity normal
-
-      - name: Build Docker image for integration tests
+      - name: Build and run unit tests
         run: |
-          docker build -t cardvalidation-integration-tests -f CardValidation.Web/Dockerfile .
+          dotnet build CardValidation.sln --configuration Release
+          dotnet test UnitTests/UnitTests.csproj --no-build --logger trx --verbosity normal
 
-      - name: Run integration tests inside Docker
+      - name: Build Docker images
         run: |
-          docker run --rm cardvalidation-integration-tests dotnet test IntegrationTests/IntegrationTests.csproj --no-build --logger:trx
+          docker build -t card-validation-api -f CardValidation.Web/Dockerfile .
+          docker build -t card-validation-integration-tests -f Dockerfile.integration-tests .
 
-      - name: Upload test results
-        uses: actions/upload-artifact@v4
-        with:
-          name: TestResults
-          path: "**/*.trx"
+      - name: Run integration tests
+        run: |
+          docker-compose up --abort-on-container-exit --build
