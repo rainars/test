@@ -40,8 +40,9 @@ jobs:
         run: |
           docker run --rm cardvalidation-integration-tests dotnet test IntegrationTests/IntegrationTests.csproj --no-build --logger:trx
 
-      - name: Upload test results (optional)
+        - name: Upload test results (optional)
         uses: actions/upload-artifact@v3
         with:
           name: TestResults
-          path: **/*.trx
+          path: "**/*.trx"
+
