@@ -29,7 +29,7 @@ jobs:
       - name: Build and run unit tests
         run: |
           dotnet build CardValidation.sln --configuration Release
-          dotnet test UnitTests/UnitTests.csproj --no-build --logger trx --verbosity normal
+          dotnet test UnitTests/UnitTests.csproj
 
       - name: Build Docker images
         run: |
