@@ -1,0 +1,8 @@
+{
+    "bindingCulture": {
+        "language": "en"
+    },
+    "stepAssemblies": [
+        { "assembly": "IntegrationTests" }
+    ]
+}
