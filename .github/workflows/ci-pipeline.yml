@@ -44,18 +44,19 @@ jobs:
       - name: Run integration tests with Docker Compose
         run: docker-compose up --abort-on-container-exit --build
 
-      - name: Upload test results
+      - name: Copy integration test results from Docker
+        if: always()  # Run this even if previous steps failed
+        run: |
+          mkdir -p ./test-results/integration
+          docker cp $(docker ps -qf "name=integration-tests"):/app/IntegrationTests/TestResults ./test-results/integration
+
+      - name: Upload unit test results
         uses: actions/upload-artifact@v3
         with:
           name: Unit-Test-Results
           path: ./test-results/unit/*.trx
 
       - name: Upload integration test results
-        if: always()
-        run: |
-          mkdir -p ./test-results/integration
-          docker cp $(docker ps -qf "name=integration-tests"):/app/IntegrationTests/TestResults ./test-results/integration
-
         uses: actions/upload-artifact@v3
         with:
           name: Integration-Test-Results
