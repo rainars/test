@@ -9,8 +9,6 @@ This project focuses on automated testing for a Card Validation API using integr
 - [Overview](#overview)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
-- [Project Structure](#project-structure)
-- [Test Scenarios Covered](#test-scenarios-covered)
 - [CI/CD Pipeline (GitHub Actions)](#cicd-pipeline-github-actions)
 - [How to Run Locally](#how-to-run-locally)
 - [Test Coverage Report](#test-coverage-report)
