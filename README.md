@@ -77,18 +77,16 @@ The CI pipeline automatically builds and tests the application on every push or 
    ```bash
    git clone <repository-url>
    cd qa-home-assignment2
-
-dotnet build CardValidation.sln
-Build the Project:
-dotnet build CardValidation.sln
-Run Unit Tests:
-dotnet test UnitTests/UnitTests.csproj
-Run Docker Compose:
-docker-compose up --build
-Test Coverage Report
-To measure test coverage using Coverlet, run the following command:
-
-coverlet ./UnitTests/bin/Debug/net8.0 --target "dotnet" --targetargs "test UnitTests/UnitTests.csp
+   dotnet build CardValidation.sln
+   Build the Project:
+   dotnet build CardValidation.sln
+   Run Unit Tests:
+   dotnet test UnitTests/UnitTests.csproj
+   Run Docker Compose:
+   docker-compose up --build
+   Test Coverage Report
+   To measure test coverage using Coverlet, run the following command:
+   coverlet ./UnitTests/bin/Debug/net8.0 --target "dotnet" --targetargs "test UnitTests/UnitTests.csp
 
 
 
