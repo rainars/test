@@ -214,6 +214,109 @@ await this.FeatureBackgroundAsync();
             }
             await this.ScenarioCleanupAsync();
         }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Validate America card expiration date checks")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "AmericanExpress Credit Card Validation")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12/25", "200", "30", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12/2025", "200", "30", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("01/22", "400", "Wrong date", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("13/25", "400", "Wrong date", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12-25", "400", "Wrong date", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12/252525", "400", "Wrong date", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12/5", "400", "Wrong date", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("02/2020", "400", "Wrong date", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("abc/xyz", "400", "Wrong date", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("00/25", "400", "Wrong date", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12/2025", "200", "30", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12/2100", "200", "30", null)]
+        public async System.Threading.Tasks.Task ValidateAmericaCardExpirationDateChecks(string issueDate, string statusCode, string expectedMessage, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("issueDate", issueDate);
+            argumentsOfScenario.Add("statusCode", statusCode);
+            argumentsOfScenario.Add("expectedMessage", expectedMessage);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Validate America card expiration date checks", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 69
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 6
+await this.FeatureBackgroundAsync();
+#line hidden
+#line 70
+ await testRunner.GivenAsync(string.Format("a credit card America with issue date \"{0}\"", issueDate), ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 71
+ await testRunner.WhenAsync("I send a POST request to \"/CardValidation/card/credit/validate\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 72
+ await testRunner.ThenAsync(string.Format("the response status should be {0}", statusCode), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 73
+ await testRunner.AndAsync(string.Format("the response should contain \"{0}\"", expectedMessage), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Validate America credit card CVC")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "AmericanExpress Credit Card Validation")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("123", "200", "30", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("1234", "200", "30", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12", "400", "Wrong cvv", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12345", "400", "Wrong cvv", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12a", "400", "Wrong cvv", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("1 23", "400", "Wrong cvv", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12#", "400", "Wrong cvv", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("abc", "400", "Wrong cvv", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("\" 123\"", "400", "Wrong cvv", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("\"123 \"", "400", "Wrong cvv", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("\"\"", "400", "Wrong cvv", null)]
+        public async System.Threading.Tasks.Task ValidateAmericaCreditCardCVC(string cvc, string statusCode, string expectedMessage, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("cvc", cvc);
+            argumentsOfScenario.Add("statusCode", statusCode);
+            argumentsOfScenario.Add("expectedMessage", expectedMessage);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Validate America credit card CVC", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 92
+ this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 6
+await this.FeatureBackgroundAsync();
+#line hidden
+#line 93
+ await testRunner.GivenAsync(string.Format("a credit card America with CVC \"{0}\"", cvc), ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 94
+ await testRunner.WhenAsync("I send a POST request to \"/CardValidation/card/credit/validate\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 95
+ await testRunner.ThenAsync(string.Format("the response status should be {0}", statusCode), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 96
+ await testRunner.AndAsync(string.Format("the response should contain \"{0}\"", expectedMessage), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
     }
 }
 #pragma warning restore

@@ -27,9 +27,7 @@ namespace tests.step_definitions
         {
             _context = context;
         }
-
-        #region Given Steps
-
+             
         [Reqnroll.Given(@"the API base URL is set")]
         public void GivenTheApiBaseUrlIsSet()
         {
@@ -48,12 +46,25 @@ namespace tests.step_definitions
             _creditCard = CreateCreditCard("John Doe", "5555555555554444", "12/25", "123");
         }
 
-           
         [Given(@"a credit card with issue date ""(.*)""")]
         public void GivenACreditCardWithIssueDate(string issueDate)
         {
             // Using a Visa card number as an example
             _creditCard = CreateCreditCard("John Doe", "4111111111111111", issueDate, "123");
+        }
+
+        [Given(@"a credit card Master with issue date ""(.*)""")]
+        public void GivenACreditCardMAsterWithIssueDate(string issueDate)
+        {
+            // Using a Visa card number as an example
+            _creditCard = CreateCreditCard("Master Doe", "5111111111111111", issueDate, "123");
+        }
+
+        [Given(@"a credit card America with issue date ""(.*)""")]
+        public void GivenACreditCardAmericarWithIssueDate(string issueDate)
+        {
+            // Using a Visa card number as an example
+            _creditCard = CreateCreditCard("America Doe", "341111111111111", issueDate, "123");
         }
 
         [Given(@"a credit card with a missing owner and number ""(.*)""")]
@@ -74,7 +85,6 @@ namespace tests.step_definitions
             _creditCard = CreateCreditCard("Invalid Owner", "1234567890123456", "01/30", "999");
         }
 
-
         [Given(@"^a credit card with ONLY owner ""(.*)"" and number ""(.*)""$")]
         public void GivenACreditCardWithOnlyOwner(string owner, string number)
         {
@@ -86,9 +96,6 @@ namespace tests.step_definitions
                 Cvv = "123"
             };
         }
-
-
-
 
         [Given(@"^a credit card with owner\s*""(.*)""\s*and\s*CVC\s*""(.*)""$")]
         public void GivenACreditCardWithOwnerAndCvc(string owner, string cvv)
@@ -102,7 +109,6 @@ namespace tests.step_definitions
             };
         }
 
-
         [Reqnroll.When(@"I send a POST request to ""(.*)""")]
         public async Task WhenISendAPostRequestTo(string endpoint)
         {
@@ -113,7 +119,6 @@ namespace tests.step_definitions
 
             _response.Should().NotBeNull("The API response should not be null.");
         }
-
 
         [Reqnroll.Then(@"the response status should be (.*)")]
         public void ThenTheResponseStatusShouldBe(int expectedStatusCode)
@@ -145,7 +150,6 @@ namespace tests.step_definitions
             }
         }
 
-
         [Given(@"a credit card with CVC ""(.*)""")]
         public void GivenACreditCardWithCVC(string cvc)
         {
@@ -158,6 +162,29 @@ namespace tests.step_definitions
             };
         }
 
+        [Given(@"a credit card America with CVC ""(.*)""")]
+        public void GivenACreditCardAmericaWithCVC(string cvc)
+        {
+            _creditCard = new CreditCard
+            {
+                Owner = "John Doe",
+                Number = "341111111111111",  // Example AmericanExpress card (valid 16 digits)
+                Date = "12/25",
+                Cvv = cvc  // Dynamically assigned CVC
+            };
+        }
+
+        [Given(@"a credit card Master with CVC ""(.*)""")]
+        public void GivenACreditCardMasterWithCVC(string cvc)
+        {
+            _creditCard = new CreditCard
+            {
+                Owner = "John Doe",
+                Number = "5111111111111111",  // Example Master card (valid 16 digits)
+                Date = "12/25",
+                Cvv = cvc  // Dynamically assigned CVC
+            };
+        }
 
         [Then(@"the response should contain errors:")]
         [Then(@"the response should contain errors:")]
@@ -206,9 +233,6 @@ namespace tests.step_definitions
             }
         }
 
-
-
-
         [Reqnroll.Then(@"the response should contain an error for Owner ""(.*)""")]
         public async Task ThenTheResponseShouldContainOwnerError(string expectedMessage)
         {
@@ -234,7 +258,6 @@ namespace tests.step_definitions
                     $"Expected response content to be '{expectedMessage}', but got '{content.Trim()}'");
             }
         }
-
 
         /// <summary>
         /// Creates a CreditCard instance with the provided details.
@@ -280,8 +303,6 @@ namespace tests.step_definitions
             }
         }
 
-
-
         [Then(@"the response should contain errors for owner ""(.*)"" and CVC ""(.*)""")]
         public async Task ThenTheResponseShouldContainErrorsForOwnerAndCvc(string expectedOwnerError, string expectedCvcError)
         {
@@ -319,9 +340,6 @@ namespace tests.step_definitions
             }
         }
 
-        
-
-
         /// <summary>
         /// Reads the HTTP response content as a string.
         /// </summary>
@@ -349,7 +367,6 @@ namespace tests.step_definitions
                 return false;
             }
         }
-
-        #endregion
+               
     }
 }

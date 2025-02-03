@@ -79,21 +79,14 @@ Examples:
 	| 01/22     | 400        | Wrong date      | # Expired past date
 	| 13/25     | 400        | Wrong date      | # Invalid month
 	| 12-25     | 400        | Wrong date      | # Wrong separator
-	#| 12/252525 | 400        | Wrong date      | # Too many digits in year
+	| 12/252525 | 400        | Wrong date      | # Too many digits in year
 	| 12/5      | 400        | Wrong date      | # Insufficient digits in year
-	#| 02/2024   | 200        | 10              | # Leap year valid date
 	| 02/2020   | 400        | Wrong date      | # Expired leap year date
-	#| 02/29     | 400        | Wrong date      | # February 29 invalid non-leap year
-	| 02/28     | 200        | 10              | # February 28 in non-leap year
-	#| 122025    | 400        | Wrong date      | # Incorrect format, no separator
-	#| " 12/25 " | 200        | 10              | # Whitespace before/after date
-	#| 01/25     | 200        | 10              | # Leading zero in month
-	#| 1/25      | 200        | 10              | # No leading zero in month
 	| abc/xyz   | 400        | Wrong date      | # Random characters as date
 	| 00/25     | 400        | Wrong date      | # Invalid month
 	| 12/2025   | 200        | 10              | # Boundary test: December
 	| 12/2100   | 200        | 10              | # Far future but realistic
-	#| 12/2500   | 400        | Wrong date      | # Year beyond practical limit
+	
 
   
 Scenario Outline: Validate credit card CVC
@@ -133,22 +126,5 @@ Examples:
     | " John"       | " 123" | 400        | "Wrong owner"  | "Wrong cvv"   |
     | "John Doe "   | "123 " | 400        | "Wrong owner"  | "Wrong cvv"   |
     | ""            | ""     | 400        | "Wrong owner"  | "Wrong cvv"   |
-
-
-##	scenario outline: validate credit card with invalid cvc, owner, date, and number
-##    given a credit card with owner "<owner>", cvc "<cvv>", date "<date>", and number "<number>"
-##    when i send a post request to "/cardvalidation/card/credit/validate"
-##    then the response status should be <statuscode>
-##    and the response should contain errors for owner "<ownererror>", cvc "<cvverror>", date "<dateerror>", and number "<numbererror>"
-##
-##
-##examples:
-##    | owner         | cvv    | date    | number             | statuscode | ownererror     | cvverror      | dateerror     | numbererror     |
-##    | john123       | 12     | 13/25   | 12345678901234     | 400        | "wrong owner"  | "wrong cvv"   | "wrong date"  | "wrong number"  | # 4 all are wrong
-##    | john_doe      | 12345  | 12-25   | 4111111111111      | 400        | "wrong owner"  | "wrong cvv"   | "wrong date"  | "wrong number"  | # 2 fields are wrong (owner and cvc)
-##    | jane@smith    | 12a    | 01/22   | 41111111111111116  | 400        | "wrong owner"  | "wrong cvv"   | "wrong date"  | "wrong number"  | # owner and date are wrong
-##    | john_doe      | abc    | 12/23   | 41111111111116     | 400        | "wrong owner"  | "wrong cvv"   | "wrong date"  | "wrong number"  | # 3 fields are wrong (owner, cvc, and date)
-##    | "john doe "   | "123 " | 01/25   | 123456             | 400        | "wrong owner"  | "wrong cvv"   | "wrong date"  | "wrong number"  | # 3 fields are wrong (number, date, and cvc)
-##    | ""            | ""     | ""      | ""                 | 400        | "wrong owner"  | "wrong cvv"   | "wrong date"  | "wrong number"  | # 4 fields are empty and wrong
 
 

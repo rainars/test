@@ -146,16 +146,16 @@ this.ScenarioInitialize(scenarioInfo);
 await this.FeatureBackgroundAsync();
 #line hidden
 #line 11
-    await testRunner.GivenAsync(string.Format("a credit card with ONLY owner \"{0}\" and number \"{1}\"", owner, number), ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+ await testRunner.GivenAsync(string.Format("a credit card with ONLY owner \"{0}\" and number \"{1}\"", owner, number), ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 12
-    await testRunner.WhenAsync("I send a POST request to \"/CardValidation/card/credit/validate\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+ await testRunner.WhenAsync("I send a POST request to \"/CardValidation/card/credit/validate\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 13
-    await testRunner.ThenAsync(string.Format("the response status should be {0}", statusCode), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+ await testRunner.ThenAsync(string.Format("the response status should be {0}", statusCode), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
 #line 14
-    await testRunner.AndAsync(string.Format("the response should contain an error for Owner \"{0}\"", expectedMessage), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+ await testRunner.AndAsync(string.Format("the response should contain an error for Owner \"{0}\"", expectedMessage), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
@@ -191,7 +191,7 @@ await this.FeatureBackgroundAsync();
             argumentsOfScenario.Add("expectedMessage", expectedMessage);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Validate MasterCard card number fields", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 38
-    this.ScenarioInitialize(scenarioInfo);
+this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
             {
@@ -204,7 +204,7 @@ await this.FeatureBackgroundAsync();
 await this.FeatureBackgroundAsync();
 #line hidden
 #line 39
-    await testRunner.GivenAsync(string.Format("a credit card with ONLY owner \"{0}\" and number \"{1}\"", owner, number), ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+ await testRunner.GivenAsync(string.Format("a credit card with ONLY owner \"{0}\" and number \"{1}\"", owner, number), ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
 #line 40
  await testRunner.WhenAsync("I send a POST request to \"/CardValidation/card/credit/validate\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
@@ -220,14 +220,29 @@ await this.FeatureBackgroundAsync();
         }
         
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Validate a valid MasterCard credit card")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Validate Master card expiration date checks")]
         [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "MasterCard Credit Card Validation")]
-        public async System.Threading.Tasks.Task ValidateAValidMasterCardCreditCard()
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12/25", "200", "20", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12/2025", "200", "20", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("01/22", "400", "Wrong date", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("13/25", "400", "Wrong date", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12-25", "400", "Wrong date", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12/252525", "400", "Wrong date", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12/5", "400", "Wrong date", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("02/2020", "400", "Wrong date", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("abc/xyz", "400", "Wrong date", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("00/25", "400", "Wrong date", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12/2025", "200", "20", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12/2100", "200", "20", null)]
+        public async System.Threading.Tasks.Task ValidateMasterCardExpirationDateChecks(string issueDate, string statusCode, string expectedMessage, string[] exampleTags)
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Validate a valid MasterCard credit card", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 76
+            argumentsOfScenario.Add("issueDate", issueDate);
+            argumentsOfScenario.Add("statusCode", statusCode);
+            argumentsOfScenario.Add("expectedMessage", expectedMessage);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Validate Master card expiration date checks", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 74
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -240,16 +255,104 @@ this.ScenarioInitialize(scenarioInfo);
 #line 6
 await this.FeatureBackgroundAsync();
 #line hidden
-#line 77
- await testRunner.GivenAsync("a valid MasterCard credit card", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line 75
+ await testRunner.GivenAsync(string.Format("a credit card Master with issue date \"{0}\"", issueDate), ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-#line 78
+#line 76
  await testRunner.WhenAsync("I send a POST request to \"/CardValidation/card/credit/validate\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 79
+#line 77
+ await testRunner.ThenAsync(string.Format("the response status should be {0}", statusCode), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 78
+ await testRunner.AndAsync(string.Format("the response should contain \"{0}\"", expectedMessage), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Validate credit Master card CVC")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "MasterCard Credit Card Validation")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("123", "200", "20", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("1234", "200", "20", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12", "400", "Wrong cvv", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12345", "400", "Wrong cvv", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12a", "400", "Wrong cvv", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("1 23", "400", "Wrong cvv", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12#", "400", "Wrong cvv", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("abc", "400", "Wrong cvv", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("\" 123\"", "400", "Wrong cvv", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("\"123 \"", "400", "Wrong cvv", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("\"\"", "400", "Wrong cvv", null)]
+        public async System.Threading.Tasks.Task ValidateCreditMasterCardCVC(string cvc, string statusCode, string expectedMessage, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("cvc", cvc);
+            argumentsOfScenario.Add("statusCode", statusCode);
+            argumentsOfScenario.Add("expectedMessage", expectedMessage);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Validate credit Master card CVC", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 97
+ this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 6
+await this.FeatureBackgroundAsync();
+#line hidden
+#line 98
+ await testRunner.GivenAsync(string.Format("a credit card Master with CVC \"{0}\"", cvc), ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 99
+ await testRunner.WhenAsync("I send a POST request to \"/CardValidation/card/credit/validate\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 100
+ await testRunner.ThenAsync(string.Format("the response status should be {0}", statusCode), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 101
+ await testRunner.AndAsync(string.Format("the response should contain \"{0}\"", expectedMessage), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestMethodAttribute()]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute("Validate a valid MasterCard credit card")]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.TestPropertyAttribute("FeatureTitle", "MasterCard Credit Card Validation")]
+        public async System.Threading.Tasks.Task ValidateAValidMasterCardCreditCard()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Validate a valid MasterCard credit card", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 121
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 6
+await this.FeatureBackgroundAsync();
+#line hidden
+#line 122
+ await testRunner.GivenAsync("a valid MasterCard credit card", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 123
+ await testRunner.WhenAsync("I send a POST request to \"/CardValidation/card/credit/validate\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 124
  await testRunner.ThenAsync("the response status should be 200", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 80
+#line 125
  await testRunner.AndAsync("the response should contain \"20\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
@@ -269,7 +372,7 @@ await this.FeatureBackgroundAsync();
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("cvvNumber", cvvNumber);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Validate a MasterCard with incorrect CVC", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 82
+#line 127
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -282,16 +385,16 @@ this.ScenarioInitialize(scenarioInfo);
 #line 6
 await this.FeatureBackgroundAsync();
 #line hidden
-#line 83
+#line 128
  await testRunner.GivenAsync(string.Format("a valid MasterCard with an incorrect CVC \"{0}\"", cvvNumber), ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-#line 84
+#line 129
  await testRunner.WhenAsync("I send a POST request to \"/CardValidation/card/credit/validate\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 85
+#line 130
  await testRunner.ThenAsync("the response status should be 400", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 86
+#line 131
  await testRunner.AndAsync("the response should contain \"Wrong cvv\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }

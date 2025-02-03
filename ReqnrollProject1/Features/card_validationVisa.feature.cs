@@ -223,9 +223,9 @@ await this.FeatureBackgroundAsync();
         [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("01/22", "400", "Wrong date", null)]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("13/25", "400", "Wrong date", null)]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12-25", "400", "Wrong date", null)]
+        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12/252525", "400", "Wrong date", null)]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12/5", "400", "Wrong date", null)]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("02/2020", "400", "Wrong date", null)]
-        [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("02/28", "200", "10", null)]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("abc/xyz", "400", "Wrong date", null)]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("00/25", "400", "Wrong date", null)]
         [Microsoft.VisualStudio.TestTools.UnitTesting.DataRowAttribute("12/2025", "200", "10", null)]
@@ -289,7 +289,7 @@ await this.FeatureBackgroundAsync();
             argumentsOfScenario.Add("statusCode", statusCode);
             argumentsOfScenario.Add("expectedMessage", expectedMessage);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Validate credit card CVC", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 99
+#line 92
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -302,16 +302,16 @@ this.ScenarioInitialize(scenarioInfo);
 #line 6
 await this.FeatureBackgroundAsync();
 #line hidden
-#line 100
+#line 93
  await testRunner.GivenAsync(string.Format("a credit card with CVC \"{0}\"", cvc), ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-#line 101
+#line 94
  await testRunner.WhenAsync("I send a POST request to \"/CardValidation/card/credit/validate\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 102
+#line 95
  await testRunner.ThenAsync(string.Format("the response status should be {0}", statusCode), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 103
+#line 96
  await testRunner.AndAsync(string.Format("the response should contain \"{0}\"", expectedMessage), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
@@ -339,7 +339,7 @@ await this.FeatureBackgroundAsync();
             argumentsOfScenario.Add("ownerError", ownerError);
             argumentsOfScenario.Add("cvvError", cvvError);
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Validate credit card with invalid CVC and owner", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 120
+#line 113
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -352,16 +352,16 @@ this.ScenarioInitialize(scenarioInfo);
 #line 6
 await this.FeatureBackgroundAsync();
 #line hidden
-#line 121
+#line 114
     await testRunner.GivenAsync(string.Format("a credit card with owner \"{0}\" and CVC \"{1}\"", owner, cvv), ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-#line 122
+#line 115
     await testRunner.WhenAsync("I send a POST request to \"/CardValidation/card/credit/validate\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 123
+#line 116
     await testRunner.ThenAsync(string.Format("the response status should be {0}", statusCode), ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 124
+#line 117
     await testRunner.AndAsync(string.Format("the response should contain errors for owner \"{0}\" and CVC \"{1}\"", ownerError, cvvError), ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }

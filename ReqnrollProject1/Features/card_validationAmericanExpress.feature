@@ -66,3 +66,45 @@ Examples:
 	| America Brown   | 3411-1111-1111-111 | 400        | "Wrong number"  | # Hyphenated format is invalid.
 	| America Lee     | 3712 3456 7890 123 | 400        | "Wrong number"  | # Space-separated format is invalid.
 
+Scenario Outline: Validate America card expiration date checks
+	Given a credit card America with issue date "<issueDate>"
+	When I send a POST request to "/CardValidation/card/credit/validate"
+	Then the response status should be <statusCode>
+	And the response should contain "<expectedMessage>"
+
+Examples:
+	| issueDate | statusCode | expectedMessage |
+	| 12/25     | 200        | 30              | # Valid future date
+	| 12/2025   | 200        | 30              | # Valid extended year
+	| 01/22     | 400        | Wrong date      | # Expired past date
+	| 13/25     | 400        | Wrong date      | # Invalid month
+	| 12-25     | 400        | Wrong date      | # Wrong separator
+	| 12/252525 | 400        | Wrong date      | # Too many digits in year
+	| 12/5      | 400        | Wrong date      | # Insufficient digits in year
+	| 02/2020   | 400        | Wrong date      | # Expired leap year date
+	| abc/xyz   | 400        | Wrong date      | # Random characters as date
+	| 00/25     | 400        | Wrong date      | # Invalid month
+	| 12/2025   | 200        | 30              | # Boundary test: December
+	| 12/2100   | 200        | 30              | # Far future but realistic
+
+
+
+	Scenario Outline: Validate America credit card CVC
+	Given a credit card America with CVC "<cvc>"
+	When I send a POST request to "/CardValidation/card/credit/validate"
+	Then the response status should be <statusCode>
+	And the response should contain "<expectedMessage>"
+
+Examples:
+	| cvc    | statusCode | expectedMessage |
+	| 123    | 200        | 30              | # 3-digit valid CVC
+	| 1234   | 200        | 30              | # 4-digit valid CVC
+	| 12     | 400        | Wrong cvv       | # Too short
+	| 12345  | 400        | Wrong cvv       | # Too long
+	| 12a    | 400        | Wrong cvv       | # Non-numeric characters
+	| 1 23   | 400        | Wrong cvv       | # Spaces within CVC
+	| 12#    | 400        | Wrong cvv       | # Special characters
+	| abc    | 400        | Wrong cvv       | # only abc
+	| " 123" | 400        | Wrong cvv       | # Leading spaces are not allowed.
+	| "123 " | 400        | Wrong cvv       | # Trial spaces are not allowed.
+	| ""     | 400        | Wrong cvv       | # empty

@@ -11,3 +11,7 @@ docker ps
 
 
 but this not opening  http://localhost:7135/swagger/index.html
+
+
+#| 12/2500   | 400        | Wrong date      | # Year beyond practical limit
+122025 
