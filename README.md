@@ -14,10 +14,6 @@ This project focuses on automated testing for a Card Validation API using integr
 - [CI/CD Pipeline (GitHub Actions)](#cicd-pipeline-github-actions)
 - [How to Run Locally](#how-to-run-locally)
 - [Test Coverage Report](#test-coverage-report)
-- [Future Improvements](#future-improvements)
-- [Contact](#contact)
-- [License](#license)
-
 ---
 
 ## Overview
@@ -99,17 +95,5 @@ The CI pipeline automatically builds and tests the application on every push or 
    Reports will be generated in the specified directory and can be viewed locally or uploaded as artifacts in the CI pipeline.
 
 ---
-
-## Future Improvements
-
-```bash
-- Expand test cases to cover additional edge cases.
-
-- Integrate API performance tests using Locust or similar tools.
-
-- Automated deployment using Docker Swarm or Kubernetes.
-
-- Enhanced reporting through dashboards or HTML reports.
-
 
 
