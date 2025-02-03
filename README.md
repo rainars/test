@@ -99,16 +99,16 @@ The CI pipeline automatically builds and tests the application on every push or 
    Reports will be generated in the specified directory and can be viewed locally or uploaded as artifacts in the CI pipeline.
 
 
-## Future Improvements
+# Future Improvements
 
 ```bash
-Expand test cases to cover additional edge cases.
+- Expand test cases to cover additional edge cases.
 
-Integrate API performance tests using Locust or similar tools.
+- Integrate API performance tests using Locust or similar tools.
 
-Automated deployment using Docker Swarm or Kubernetes.
+- Automated deployment using Docker Swarm or Kubernetes.
 
-Enhanced reporting through dashboards or HTML reports.
+- Enhanced reporting through dashboards or HTML reports.
 
 
 
