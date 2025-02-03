@@ -69,8 +69,8 @@ The CI pipeline automatically builds and tests the application on every push or 
 5. **Run Integration Tests:** Uses Docker Compose to spin up containers and execute tests.
 6. **Collect Test Results:** Copies test result files from containers for reporting.
 7. **Upload Test Results:** Provides easy access to the test logs and coverage reports.
-
-# How to Run Locally
+---
+## How to Run Locally
 
 1. **Clone the Repository:**
 
@@ -88,8 +88,8 @@ The CI pipeline automatically builds and tests the application on every push or 
    To measure test coverage using Coverlet, run the following command:
    coverlet ./UnitTests/bin/Debug/net8.0 --target "dotnet" --targetargs "test UnitTests/UnitTests.csp
 
-
-# Test Coverage Report
+---
+## Test Coverage Report
 
    ```bash
    To measure test coverage, we use Coverlet. Run the following command to generate coverage reports:
@@ -98,8 +98,9 @@ The CI pipeline automatically builds and tests the application on every push or 
 
    Reports will be generated in the specified directory and can be viewed locally or uploaded as artifacts in the CI pipeline.
 
+---
 
-# Future Improvements
+## Future Improvements
 
 ```bash
 - Expand test cases to cover additional edge cases.
