@@ -89,4 +89,26 @@ The CI pipeline automatically builds and tests the application on every push or 
    coverlet ./UnitTests/bin/Debug/net8.0 --target "dotnet" --targetargs "test UnitTests/UnitTests.csp
 
 
+# Test Coverage Report
+
+   ```bash
+   To measure test coverage, we use Coverlet. Run the following command to generate coverage reports:
+
+   coverlet ./UnitTests/bin/Debug/net8.0 --target "dotnet" --targetargs "test UnitTests/UnitTests.csproj"
+
+   Reports will be generated in the specified directory and can be viewed locally or uploaded as artifacts in the CI pipeline.
+
+
+## Future Improvements
+
+```bash
+Expand test cases to cover additional edge cases.
+
+Integrate API performance tests using Locust or similar tools.
+
+Automated deployment using Docker Swarm or Kubernetes.
+
+Enhanced reporting through dashboards or HTML reports.
+
+
 
